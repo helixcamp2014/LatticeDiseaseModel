@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /*
  * should this class be immutable?
@@ -29,6 +30,7 @@ private int columns;
 private int currentStep;
 private final double beta = 0.2;//this is a paramter that we will calibrate the model with
 
+PrintWriter outputFile;
 
 	public LatticeModel(int rows, int columns){
 		currentStep = 0;
@@ -46,6 +48,15 @@ private final double beta = 0.2;//this is a paramter that we will calibrate the 
 		}	
 		this.rows = rows;
 		this.columns = columns;
+		try{
+			outputFile = new PrintWriter("SIR.csv", "UTF-8");
+			outputFile.println("Start of Simulation");
+		} 
+		catch (IOException ex)
+		{
+			
+		}
+		
 	};
 	
 	public LatticeModel(Individual [][] initialState){
@@ -165,9 +176,44 @@ private final double beta = 0.2;//this is a paramter that we will calibrate the 
 		return currentStep;
 	}
 	
+	public void closeLogFile()
+	{
+		outputFile.close();
+	}
+	
+	public void printCurrentState(){
+		int susceptible = 0;
+		int infected = 0;
+		int removed = 0;
+		
+		for(int row = 0; row < rows; row++)
+		{
+			for(int column = 0; column < columns; column++)
+			{
+				if(lattice[row][column].state == 'S')
+				{
+					susceptible++;
+				} 
+				else if(lattice[row][column].state == 'I')
+				{
+					infected++;
+				} 
+				else if(lattice[row][column].state == 'R')
+				{
+					removed++;
+				}
+			}
+		}
+		
+		System.out.println("printing to the screen: "+ susceptible + "," + infected + "," + removed + "\n");
+		outputFile.println(currentStep+ "," + susceptible + "," + infected + "," + removed);
+		
+		
+	}
+	
 	public void computeNextState(){
 		//Individual nextState [][] = new Individual[rows][columns];
-		
+		printCurrentState();
 		//perform "concurrent" computation of next state
 		for(int row = 0; row < rows; row++)
 		{

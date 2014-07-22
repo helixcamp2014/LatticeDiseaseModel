@@ -227,6 +227,7 @@ public class CA_GUI extends JPanel
 			//toggle button text and action
 			startButton.setLabel("Start");
 			startButton.setActionCommand("start");
+			model.closeLogFile();
 			started= false;
 			if(displayTimer != null)
 			{
