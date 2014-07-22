@@ -9,20 +9,24 @@ import java.awt.event.MouseListener;
 
 public class CA_GUI_Tile extends JLabel implements MouseListener {
     Dimension minSize = new Dimension(1,1);
-    GameOfLife model;
+    LatticeModel model;
     int row_id, column_id;
 
-    public CA_GUI_Tile(int row_id, int column_id, GameOfLife model) {
+    public CA_GUI_Tile(int row_id, int column_id, LatticeModel model) {
     	this.row_id = row_id;
     	this.column_id = column_id;
     	this.model = model;
-    	if(model.getStateAt(row_id, column_id) == 1)
+    	if(model.getStateAt(row_id, column_id).state == 'S')
 		{
-			setBackground(Color.black);
+			setBackground(Color.green);
 		}
-		else
+		else if(model.getStateAt(row_id, column_id).state == 'I')
 		{
-			setBackground(Color.white);
+			setBackground(Color.red);
+		}
+		else if(model.getStateAt(row_id, column_id).state == 'R')
+		{
+			setBackground(Color.blue);
 		}
         setOpaque(true);
         setBorder(BorderFactory.createLineBorder(Color.black));
@@ -40,16 +44,18 @@ public class CA_GUI_Tile extends JLabel implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		//toggle the state of the correct lattice
-		model.toggleState(row_id, column_id);
-		if(model.getStateAt(row_id, column_id) == 1)
+		model.getStateAt(row_id, column_id).state = 'I';
+		if(model.getStateAt(row_id, column_id).state == 'S')
 		{
-			//setBackground(Color.black);
 			setBackground(Color.green);
 		}
-		else
+		else if(model.getStateAt(row_id, column_id).state == 'I')
 		{
-			//setBackground(Color.white);
-			setBackground(Color.black);
+			setBackground(Color.red);
+		}
+		else if(model.getStateAt(row_id, column_id).state == 'R')
+		{
+			setBackground(Color.blue);
 		}
 		repaint();
 		System.out.println("grid was clicked: " + row_id + ", " + column_id);
@@ -60,15 +66,17 @@ public class CA_GUI_Tile extends JLabel implements MouseListener {
 	public void paint(Graphics g)
 	{
 		//determine color
-		if(model.getStateAt(row_id, column_id) == 1)
+		if(model.getStateAt(row_id, column_id).state == 'S')
 		{
-			//setBackground(Color.black);
 			setBackground(Color.green);
 		}
-		else
+		else if(model.getStateAt(row_id, column_id).state == 'I')
 		{
-			//setBackground(Color.white);
-			setBackground(Color.black);
+			setBackground(Color.red);
+		}
+		else if(model.getStateAt(row_id, column_id).state == 'R')
+		{
+			setBackground(Color.blue);
 		}
 		//System.out.println("grid was painted: " + row_id + ", " + column_id);
 		super.paint(g);

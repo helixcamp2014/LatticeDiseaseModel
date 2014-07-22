@@ -22,9 +22,9 @@ public class CA_GUI_GridContainer extends JPanel{
     
     CA_GUI_Tile tileGrid[][];
     int rows, columns;
-    GameOfLife model;
+    LatticeModel model;
 
-    public CA_GUI_GridContainer(int rows, int columns, GameOfLife model) {
+    public CA_GUI_GridContainer(int rows, int columns, LatticeModel model) {
     	super(new GridLayout(rows,columns), true);
     	tileGrid = new CA_GUI_Tile[rows][columns];
     	this.model = model;
@@ -47,7 +47,7 @@ public class CA_GUI_GridContainer extends JPanel{
         setBorder(BorderFactory.createLineBorder(Color.black));
     }
 
-    public void reset(int newRows, int newColumns, GameOfLife newModel) {
+    public void reset(int newRows, int newColumns, LatticeModel newModel) {
     	
     	for(int row = 0; row < rows; row++)
     	{
