@@ -266,7 +266,7 @@ PrintWriter outputFile;
 			currentIndividual.updateDiseaseState();
 			
 			neighbour = getRight(row,column,a_lattice);
-			if(Math.random() < beta)
+			if(neighbour.getDiseaseState() == 'S' && Math.random() < beta)
 			{
 				//transmission happens
 				neighbour.infect();
@@ -280,7 +280,7 @@ PrintWriter outputFile;
 			//if this time exceeds the infectious period then turn Removed ('R')
 			currentIndividual.updateDiseaseState();
 			neighbour = getDown(row,column,a_lattice);
-			if(Math.random() < beta)
+			if(neighbour.getDiseaseState() == 'S' && Math.random() < beta)
 			{
 				//transmission happens
 				neighbour.infect();
@@ -294,7 +294,7 @@ PrintWriter outputFile;
 			//if this time exceeds the infectious period then turn Removed ('R')
 			currentIndividual.updateDiseaseState();
 			neighbour = getUp(row,column,a_lattice);
-			if(Math.random() < beta)
+			if(neighbour.getDiseaseState() == 'S' && Math.random() < beta)
 			{
 				//transmission happens
 				neighbour.infect();
@@ -508,5 +508,11 @@ PrintWriter outputFile;
 	public int getNumberOfSecondaryInfections()
 	{
 		return this.countOfSecondaryInfections;
+	}
+	
+	public void resetCounts()
+	{
+		numberOfIndexCases = 0;
+		countOfSecondaryInfections = 0;
 	}
 }

@@ -32,4 +32,8 @@ public class Individual {
 		}
 		timeStepsSpentInfected++;
 	}
+	
+	public char getDiseaseState(){
+		return state;
+	}
 }

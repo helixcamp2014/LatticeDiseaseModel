@@ -265,6 +265,7 @@ public class CA_GUI extends JPanel
 			started= false;
 			startButton.setLabel("Start");
 			startButton.setActionCommand("start");
+			model.resetCounts();
 			resetGrid();
 		}
 		else if(e.getActionCommand() == "load")
