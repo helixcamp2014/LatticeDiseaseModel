@@ -44,7 +44,9 @@ public class CA_GUI_Tile extends JLabel implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		//toggle the state of the correct lattice
-		model.getStateAt(row_id, column_id).state = 'I';
+		//model.getStateAt(row_id, column_id).state = 'I';
+		//model.getStateAt(row_id, column_id).initialInfection();
+		model.initialInfection(row_id, column_id);
 		if(model.getStateAt(row_id, column_id).state == 'S')
 		{
 			setBackground(Color.green);
@@ -58,7 +60,7 @@ public class CA_GUI_Tile extends JLabel implements MouseListener {
 			setBackground(Color.blue);
 		}
 		repaint();
-		System.out.println("grid was clicked: " + row_id + ", " + column_id);
+		System.out.println("Initial case at : " + row_id + ", " + column_id);
 	}
 	
 	

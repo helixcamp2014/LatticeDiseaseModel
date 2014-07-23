@@ -32,6 +32,8 @@ public class CA_GUI extends JPanel
     Button loadButton;
     JSpinner delaySpinner, sizeSpinner;
     Label currentStepLabel;
+    Label r0label;
+    
     
     boolean started = false;
     int millisecondsBetweenFrames = 1000;
@@ -115,8 +117,12 @@ public class CA_GUI extends JPanel
     	{
     		displayTimer.setDelay((int)delaySpinner.getModel().getValue());
     	}
-    	currentStepLabel.setText("Current Step: " + model.getCurrentStep());
+    	double averageSecondaryInfections = model.getNumberOfSecondaryInfections() / (double) model.getNumberOfIndexCases();
+    	currentStepLabel.setText("Current Step: " + model.getCurrentStep() );
     	currentStepLabel.repaint();
+    	
+    	r0label.setText("Ro: "+ averageSecondaryInfections);
+    	r0label.repaint();
 
     	System.out.println("tick() was called !!!");
     	
@@ -173,12 +179,19 @@ public class CA_GUI extends JPanel
         nextGenerationButton.setActionCommand("step");  
         nextGenerationButton.addActionListener(this);
         controlsArea.add(nextGenerationButton);
-        
-        loadButton = new Button("Load from file");
+        /*
+        loadButton = new Button("Measure Ro");
         loadButton.setActionCommand("load");
         loadButton.addActionListener(this);
         controlsArea.add(loadButton);
+        */
+        
         add(controlsArea, BorderLayout.SOUTH);
+        
+        
+        r0label = new Label("Ro: 0");
+        controlsArea.add(r0label);  
+        
                               
         
         //Register for mouse events on blankArea and the panel.

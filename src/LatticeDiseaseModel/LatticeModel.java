@@ -28,7 +28,9 @@ private Individual lattice[][]; //TODO: stores an int should this be an enum, or
 private int rows;
 private int columns;
 private int currentStep;
-private final double beta = 0.2;//this is a paramter that we will calibrate the model with
+private final double beta = 0.1;//this is a paramter that we will calibrate the model with
+private int countOfSecondaryInfections;
+private int numberOfIndexCases;
 
 PrintWriter outputFile;
 
@@ -56,6 +58,8 @@ PrintWriter outputFile;
 		{
 			
 		}
+		countOfSecondaryInfections = 0;
+		numberOfIndexCases = 0;
 		
 	};
 	
@@ -77,6 +81,8 @@ PrintWriter outputFile;
 				lattice[row][column] = new Individual();
 			}
 		}	
+		countOfSecondaryInfections = 0;
+		numberOfIndexCases = 0;
 		
 	};
 	
@@ -236,16 +242,11 @@ PrintWriter outputFile;
 		 * 
 		 */
 		
-		if(a_lattice == null)
-		{
-			System.out.println("lattice was null in applyRule");
-		}
+		
 		//placeholder
 		Individual currentIndividual = a_lattice[row][column];
-		if(currentIndividual == null)
-		{
-			System.out.println("Individual was null in applyRule");
-		}
+		
+		
 		if(currentIndividual.state == 'I')
 		{
 			//infect neighbours
@@ -254,6 +255,10 @@ PrintWriter outputFile;
 			{
 				//transmission happens
 				neighbour.infect();
+				if(currentIndividual.isPrimaryCase)
+				{
+					this.countOfSecondaryInfections++;
+				}
 				
 			}
 			//update the time spent infected
@@ -265,6 +270,10 @@ PrintWriter outputFile;
 			{
 				//transmission happens
 				neighbour.infect();
+				if(currentIndividual.isPrimaryCase)
+				{
+					this.countOfSecondaryInfections++;
+				}
 				
 			}
 			//update the time spent infected
@@ -275,6 +284,10 @@ PrintWriter outputFile;
 			{
 				//transmission happens
 				neighbour.infect();
+				if(currentIndividual.isPrimaryCase)
+				{
+					this.countOfSecondaryInfections++;
+				}
 				
 			}
 			//update the time spent infected
@@ -285,6 +298,10 @@ PrintWriter outputFile;
 			{
 				//transmission happens
 				neighbour.infect();
+				if(currentIndividual.isPrimaryCase)
+				{
+					this.countOfSecondaryInfections++;
+				}
 				
 			}
 			//update the time spent infected
@@ -477,4 +494,19 @@ PrintWriter outputFile;
 	}
 	
 	
+	public void initialInfection(int row_id, int col_id)
+	{
+		this.numberOfIndexCases++;
+		getStateAt(row_id,col_id).initialInfection();
+	}
+	
+	public int getNumberOfIndexCases()
+	{
+		return this.numberOfIndexCases;
+	}
+	
+	public int getNumberOfSecondaryInfections()
+	{
+		return this.countOfSecondaryInfections;
+	}
 }
