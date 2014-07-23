@@ -306,6 +306,48 @@ PrintWriter outputFile;
 			//update the time spent infected
 			//if this time exceeds the infectious period then turn Removed ('R')
 			currentIndividual.updateDiseaseState();
+			
+			neighbour = getUpLeft(row,column,a_lattice);
+			if(neighbour.getDiseaseState() == 'S' && Math.random() < beta)			{
+				//transmission happens
+				neighbour.infect();
+				if(currentIndividual.isPrimaryCase)
+				{
+					this.countOfSecondaryInfections++;
+				}
+				
+			}
+			neighbour = getDownLeft(row,column,a_lattice);
+			if(neighbour.getDiseaseState() == 'S' && Math.random() < beta)			{
+				//transmission happens
+				neighbour.infect();
+				if(currentIndividual.isPrimaryCase)
+				{
+					this.countOfSecondaryInfections++;
+				}
+				
+			}
+			neighbour = getUpRight(row,column,a_lattice);
+			if(neighbour.getDiseaseState() == 'S' && Math.random() < beta)			{
+				//transmission happens
+				neighbour.infect();
+				if(currentIndividual.isPrimaryCase)
+				{
+					this.countOfSecondaryInfections++;
+				}
+				
+			}
+			neighbour = getDownRight(row,column,a_lattice);
+			if(neighbour.getDiseaseState() == 'S' && Math.random() < beta)			{
+				//transmission happens
+				neighbour.infect();
+				if(currentIndividual.isPrimaryCase)
+				{
+					this.countOfSecondaryInfections++;
+				}
+				
+			}
+			
 		}		
 	}
 	
