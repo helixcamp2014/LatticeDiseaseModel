@@ -251,8 +251,7 @@ PrintWriter outputFile;
 		{
 			//infect neighbours
 			Individual neighbour = getLeft(row,column,a_lattice);
-			if(Math.random() < beta)
-			{
+			if(neighbour.getDiseaseState() == 'S' && Math.random() < beta)			{
 				//transmission happens
 				neighbour.infect();
 				if(currentIndividual.isPrimaryCase)
